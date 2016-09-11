@@ -35,18 +35,20 @@ function loadData() {
 
     $.getJSON( nytUrl, function( data ) {
 
-        $nytHeaderElem.text("New York Timres Articles about " + cityStr);
+        $nytHeaderElem.text("New York Times Articles about " + cityStr);
 
         articles = data.response.docs;
 
         for(var i=0;articles.length;i++){
             var article = articles[i];
             $nytElem.append( '<li class="article">' + 
-                            '<a href="' + article.web_url + '" target="_blank" >' + 
-                             article.headline.main + '</a>' +
+                            '<a href="' + article.web_url +'" target="_blank" >' + 
+                             article.headline.main + ' - '+article.pub_date + '</a>' +
                             '<p>' + article.snippet+ '</p>' + '</li>')
         };
 
+    }).error(function(e){
+        $nytHeaderElem.text("New York Times Articles could not be loaded ");
     });
 
     
